@@ -132,28 +132,4 @@ public final class AnotherConcurrentGUI extends JFrame {
         }
     }
 
-
-    private class AutomaticAgent implements Runnable {
-
-        private final static int TEN_SECONDS = 10000;
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(TEN_SECONDS);
-                AnotherConcurrentGUI.this.up.setEnabled(false);
-                AnotherConcurrentGUI.this.down.setEnabled(false);
-                AnotherConcurrentGUI.this.stop.setEnabled(false);
-                
-            
-            } catch (InterruptedException ex) {
-                /*
-                 * This is just a stack trace print, in a real program there
-                 * should be some logging and decent error reporting
-                 */
-                ex.printStackTrace();
-            }
-        }
-        
-    }
 }
