@@ -51,11 +51,11 @@ public final class AnotherConcurrentGUI extends JFrame {
         new Thread(() -> {
             try {
                 Thread.sleep(10000);
-                agent.stopCounting();
-                this.up.setEnabled(false);
-                this.down.setEnabled(false);
-                this.stop.setEnabled(false);
-            } catch (InterruptedException ex) {
+                SwingUtilities.invokeAndWait(() -> agent.stopCounting());
+                SwingUtilities.invokeAndWait(() -> this.up.setEnabled(false));
+                SwingUtilities.invokeAndWait(() -> this.down.setEnabled(false));
+                SwingUtilities.invokeAndWait(() -> this.stop.setEnabled(false));
+            } catch (InterruptedException | InvocationTargetException ex) {
                 /*
                  * This is just a stack trace print, in a real program there
                  * should be some logging and decent error reporting
