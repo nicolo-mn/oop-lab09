@@ -3,7 +3,10 @@ package it.unibo.oop.workers02;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiThreadedSumMatrix implements SumMatrix{
+/**
+ * This is an implementation of the matrix sum calculation.
+ */
+public class MultiThreadedSumMatrix implements SumMatrix {
     private final int nthread;
 
     /**
@@ -27,10 +30,10 @@ public class MultiThreadedSumMatrix implements SumMatrix{
         /**
          * Build a new worker.
          * 
-         * @param list
-         *            the list to sum
-         * @param startpos
-         *            the initial position for this worker
+         * @param matrix
+         *            the matrix to sum
+         * @param startElem
+         *            the initial element for this worker
          * @param nelem
          *            the no. of elems to sum up for this worker
          */
@@ -45,8 +48,8 @@ public class MultiThreadedSumMatrix implements SumMatrix{
         public void run() {
             //System.out.println("Working from position " + startpos + " to position " + (startpos + nelem - 1));
             for (int i = 0; i < nelem; i++) {
-                int curRow = (this.startElem + i) / matrix[0].length;
-                int curCol = (this.startElem + i) % matrix[0].length;
+                final int curRow = (this.startElem + i) / matrix[0].length;
+                final int curCol = (this.startElem + i) % matrix[0].length;
                 if (curRow < matrix.length && curCol < matrix[0].length) {
                     this.res += matrix[curRow][curCol];
                 }
@@ -64,8 +67,12 @@ public class MultiThreadedSumMatrix implements SumMatrix{
 
     }
 
+    /**
+     * Sums the elements in a matrix.
+     * @param matrix the matrix to sum
+     */
     @Override
-    public double sum(double[][] matrix) {
+    public double sum(final double[][] matrix) {
         final int totalElems = matrix.length * matrix[0].length;
         final int size = totalElems % nthread + totalElems / nthread;
         /*
@@ -100,5 +107,4 @@ public class MultiThreadedSumMatrix implements SumMatrix{
          */
         return sum;
     }
-    
 }
